@@ -1,6 +1,7 @@
 const CryptoJS = require('crypto-js');
 const { debugResult } = require('ibar-sdk').utils;
 const { tokenSecret } = require('./tokenSecret')
+const {decryptToken} = require('./index')
 
 const encryptObj = CryptoJS.AES.encrypt(JSON.stringify({ changedBy: 'changedBy', userKey: 'userKey' }), 'secret').toString();
 console.log(CryptoJS.AES.decrypt(encryptObj, tokenSecret).toString(CryptoJS.enc.Utf8))
