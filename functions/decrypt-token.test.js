@@ -1,8 +1,9 @@
 const decryptToken = require('./decrypt-token');
+const { throws } = require('ibar-sdk');
 const encryptedToken = 'U2FsdGVkX18C3Nu6uE2U/boyzZDVdy/cwLitdEklGW24vK8aO92X+bn8DCmcmuLl29ryaVH7aYYvyBK7mQ9R4w==';
 
 describe('\n function decryptToken(token, tokenSecret)', () => {
-  test('should return decrypted token when token is valid', async () => {
+  test('should return decrypted token when token is valid', () => {
     const token = encryptedToken;
 
     const expected = {
@@ -10,16 +11,15 @@ describe('\n function decryptToken(token, tokenSecret)', () => {
       userKey: 'userKey'
     };
 
-    await decryptToken(token, 'tokenSecret')
-      .then(received => {
-        expect(received).toEqual(expected);
-      })
-      .catch(received => {
-        fail();
-      });
+    try {
+      const received = decryptToken(token, 'tokenSecret')
+      expect(received).toEqual(expected);
+    } catch (received) {
+      fail();
+    }
   })
 
-  test('should return error object when anything goes wrong', async () => {
+  test('should return error object when anything goes wrong', () => {
     const token = undefined;
 
     const expected = JSON.stringify({
@@ -27,14 +27,13 @@ describe('\n function decryptToken(token, tokenSecret)', () => {
       inputData: token
     });
 
-    await decryptToken(token, 'tokenSecret')
-      .then(received => { 
-        fail();
-      })
-      .catch(received => {
-        received = JSON.parse(received);
-        received.errorMessage = undefined;
-        expect(received).toEqual(JSON.parse(expected));
-      });
+    try {
+      const received = decryptToken(token, 'tokenSecret')
+      fail();
+    } catch (received) {
+      received = JSON.parse(received);
+      received.errorMessage = undefined;
+      expect(received).toEqual(JSON.parse(expected));
+    }
   })
 })
