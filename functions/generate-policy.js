@@ -1,6 +1,7 @@
 module.exports = generatePolicy = function(requesterUser, effect, resource) {
   var authResponse = {};
   
+  authResponse.principalId  = requesterUser.id
   if (effect && resource) {
       var policyDocument = {};
       policyDocument.Version = '2012-10-17'; 
