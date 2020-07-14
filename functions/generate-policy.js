@@ -14,7 +14,7 @@ module.exports = generatePolicy = function(requesterUser, effect, resource) {
   }
   
   authResponse.context = {
-      "requesterUser": requesterUser
+      "requesterUser": JSON.stringify(requesterUser)
   };
   return authResponse;
 }
