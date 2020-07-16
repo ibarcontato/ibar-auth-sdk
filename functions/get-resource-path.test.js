@@ -1,10 +1,10 @@
-const getListedPathFromMethodArn = require('./get-listed-path-from-method-arn');
+const getListedPathFromMethodArn = require('./get-resource-path');
 
-describe('\n function getListedPathFromMethodArn(methodArn)', () => {
-  test('should return success array when methodArn is valid', () => {
+describe('\n function getResourcePath(methodArn)', () => {
+  test('should return success string when methodArn is valid', () => {
     const methodArn = 'arn:aws:execute-api:us-east-1:920203088067:hbt5m1vhm8/dev/GET/test';
 
-    const expected = ['GET', 'test'];
+    const expected = 'GET/test';
 
     try {
       const received = getListedPathFromMethodArn(methodArn)
@@ -12,12 +12,12 @@ describe('\n function getListedPathFromMethodArn(methodArn)', () => {
     } catch (received) {
       fail();
     }
-  })
+  }) 
 
   test('should return error object when methodArn is not string', () => {
     const methodArns = [1, true, {}, [], () => { }, null, undefined];
 
-    for (let methodArn of methodArns) {
+    for (let methodArn of methodArns) { 
       const expected = JSON.stringify({
         statusCode: 400,
         inputData: methodArn,
@@ -37,9 +37,9 @@ describe('\n function getListedPathFromMethodArn(methodArn)', () => {
     const methodArn = '';
 
     const expected = JSON.stringify({
-      statusCode: 400,
+      statusCode: 400, 
       inputData: methodArn,
-      errorMessage: '"listedPath" should not be an empty list.'
+      errorMessage: '"listedPath" should not be empty.'
     });
 
     try {
