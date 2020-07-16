@@ -25,7 +25,7 @@ describe('\n function decryptToken(token, tokenSecret)', () => {
     const expected = JSON.stringify({
       statusCode: 400,
       inputData: token
-    });
+    }); 
 
     try {
       const received = decryptToken(token, 'tokenSecret')
