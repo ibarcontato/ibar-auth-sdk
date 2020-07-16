@@ -6,6 +6,6 @@ module.exports = function decryptToken(token, tokenSecret) {
     const decryptedToken = CryptoJS.AES.decrypt(token, tokenSecret).toString(CryptoJS.enc.Utf8)
     return JSON.parse(decryptedToken);
   } catch (err) {
-    throwErrorResponseModel(token, err.message);
+    throwErrorResponseModel(token, 'Could not decrypt token. ' + err.message);
   }
 } 
