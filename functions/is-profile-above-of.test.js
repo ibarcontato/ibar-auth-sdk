@@ -47,7 +47,7 @@ describe('\n function isProfileAboveOf(aboveProfiles, belowProfile, profileHiera
   })
 
   test('should return false when any error happens', () => {
-    const aboveProfiles = ['profile10', 'profile9'];
+    const aboveProfiles = undefined;
     const belowProfile = undefined;
     const expected = false;
 
